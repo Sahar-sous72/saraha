@@ -20,6 +20,6 @@ export const registerSchema ={
 export const LoginSchema ={
   body:  Joi.object({
     email:generalFields.email,
-    password:generalFields.password,
+    password:generalFields.password
 })
 }

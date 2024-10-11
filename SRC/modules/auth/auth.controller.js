@@ -42,11 +42,12 @@ export const register=async(req,res)=>{
 
     }
 }
+
 export const login=async(req,res)=>{
     const{email,password}=req.body;
    // return res.json(req.body)
 
-   const result =LoginSchema.validate({email,password,},{abortEarly:false})
+   const result =LoginSchema.body.validate({email,password,},{abortEarly:false})
    if(result.error?.details){
     return res.status(404).json({message:"error validation",error:result.error.details})
    }
@@ -64,7 +65,15 @@ export const login=async(req,res)=>{
 
     return res.status(201).json({message:"sucsess",token})
     }
-    
+ 
+export const getAllUsers=async(req,res)=>{
+    try{
+    const users =await userModel.find().select('userName');
+    return res.status(201).json({message:"success",users})
+    }catch(error){
+        return res.status(500).json({message:"catch error", error:error.stack})
+    }
+}
     
 
 

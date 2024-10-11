@@ -13,9 +13,9 @@ const validation =(schema)=>{
   
     dataMethods.forEach(key=>{
         if(schema[key]){
-            const validationResult =schema[key].validate(req[key],{abortEarly:false});
+            const validationResult =schema[key].validate(req[key],{abortEarly:false}); // abortEarly:false حتى يظهر جميع الايرورز 
             if(validationResult.error){
-            errorArray.push(validationResult.error.details);
+            errorArray.push(validationResult.error.details); //.details >> حتى احدد ايش يظهرلي من الايرور
             }
         }
     })
