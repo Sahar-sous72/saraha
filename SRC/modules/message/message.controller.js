@@ -4,7 +4,7 @@ import messageModel from "../../../DB/models/Message.model.js";
 import jwt from 'jsonwebtoken'
 
 export const sendMessage =async (req,res)=>{
-    try{
+    
     const {message}= req.body;
     const{recivedId}= req.params;
 
@@ -16,10 +16,7 @@ export const sendMessage =async (req,res)=>{
     await messageModel.create({message,recivedId});//اذا تمام بضيفه عجدول الرسائل
 
   return res.status(201).json({message:"success"})
-}
-catch(error){
-return res.status(500).json({message:"catch error", error:error.stack})
-}
+
 
 }
 

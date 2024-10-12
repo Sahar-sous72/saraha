@@ -4,10 +4,11 @@ import * as authController from './auth.controller.js'
 import validation from "../../midlleware/validation.js";
 import { LoginSchema, registerSchema } from "./auth.validation.js";
 import { auth } from "../../midlleware/auth.js";
+import { asyncHandler } from "../../utils/catchError.js";
 
-app.post('/register',validation(registerSchema),authController.register);
-app.post('/login',validation(LoginSchema),authController.login);
-app.get('/allUsers',auth,authController.getAllUsers)
+app.post('/register',validation(registerSchema),asyncHandler(authController.register));
+app.post('/login',validation(LoginSchema),asyncHandler(authController.login));
+app.get('/allUsers',auth,asyncHandler(authController.getAllUsers))
 
 
 export default app;
