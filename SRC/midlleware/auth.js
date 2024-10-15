@@ -13,6 +13,7 @@ export const auth =(req,res,next)=>{
     if(!decoded){
         return res.status(404).json({message:"invalid token"})
     }
+    
     req.id = decoded.id;
     next();
 }catch(error){

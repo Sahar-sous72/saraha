@@ -3,9 +3,11 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { sendEmail } from './../../utils/sendEmail.js'
 import { LoginSchema, registerSchema } from "./auth.validation.js";
+import { AppError } from "../../../appError.js";
+import { AppSucc } from "../../../AppSucc.js";
 
-export const register=async(req,res)=>{
-    try{
+export const register=async(req,res,next)=>{
+    
         const{userName,email,password,gender,cpassword}=req.body;
 
         // validation
@@ -22,7 +24,7 @@ export const register=async(req,res)=>{
 
         const user =await userModel.findOne({email}); //to confirm its new person
         if (user){
-            return res.status(409).json({message:"Email exist"})
+            return next(new AppError("email exit",409))
         }
         const hashPass= bcrypt.hashSync(password,parseInt(process.env.SALTROUND));
 
@@ -35,15 +37,13 @@ export const register=async(req,res)=>{
         `
         sendEmail(email,"WELCOME",html);
         const newUser =await userModel.create({userName,password:hashPass,email});
-        return res.status(201).json({message:"success"})
+        return next(new AppSucc("success",201))
+       // return res.status(201).json({message:"success"})
 
-    }catch(err){
-        return res.status(500).json({error:err.stack})
-
-    }
+    
 }
 
-export const login=async(req,res)=>{
+export const login = async(req,res,next)=>{
     const{email,password}=req.body;
    // return res.json(req.body)
 
@@ -54,25 +54,23 @@ export const login=async(req,res)=>{
    
     const user =await userModel.findOne({email});
     if(!user){
-        return res.status(401).json({error:"email not found"})
+        return next(new AppError("email not found",409))
     }
     const match=bcrypt.compareSync(password,user.password);
     if(!match){
-        return res.status(401).json({error:"invalid password"})
+        return next(new AppError("invalid password",409))
     }
     const token=await jwt.sign({id:user._id},process.env.Signiture,
-        {expiresIn:'1h'})
+        {expiresIn:'2h'})
 
     return res.status(201).json({message:"sucsess",token})
     }
  
 export const getAllUsers=async(req,res)=>{
-    try{
+   
     const users =await userModel.find().select('userName');
     return res.status(201).json({message:"success",users})
-    }catch(error){
-        return res.status(500).json({message:"catch error", error:error.stack})
-    }
+   
 }
     
 
