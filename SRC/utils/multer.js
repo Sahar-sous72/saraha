@@ -17,8 +17,8 @@ const fileUpload=()=>{
      // file filter >> لحتى اخليه يقبل بس صور مش اي نوع ملفات ثانية
     function fileFilter(req,file,cb){
         // امتداد الصور المسموح رفعه
-        if(['image/jpeg' ,'image/png' ,'image/gif'].includes(file.mimetype)){
-      //  if(file.mimetype=='image/jpeg' || file.mimetype=='image/png' || file.mimetype=='image/gif'){
+        if(['image/jpeg' ,'image/png' ,'image/gif','image/jpg'].includes(file.mimetype)){
+      //or   if(file.mimetype=='image/jpeg' ||file.mimetype=='image/jpg'|| file.mimetype=='image/png' || file.mimetype=='image/gif'){
             cb(null,true)
         }else{
             cb("invalid format",false);

@@ -73,7 +73,11 @@ export const getAllUsers=async(req,res)=>{
    
 }
 export const UploadImage=async(req,res,next)=>{
-    return next(new AppSucc('hi',203))
+   // return res.json(req.file)
+
+    const imgUrl =req.file.destination +"/"+req.file.filename;
+    const user=await userModel.findByIdAndUpdate(req.id,{profilePicture:imgUrl})
+    return next(new AppSucc("success",200))
 }
     
 

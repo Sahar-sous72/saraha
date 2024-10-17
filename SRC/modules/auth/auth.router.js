@@ -10,7 +10,8 @@ import fileUpload from "../../utils/multer.js";
 app.post('/register',validation(registerSchema),asyncHandler(authController.register));
 app.post('/login',validation(LoginSchema),asyncHandler(authController.login));
 app.get('/allUsers',auth,asyncHandler(authController.getAllUsers));
-app.post('/uploadImage',fileUpload().single('image'),authController.UploadImage)
+//app.post('/uploadImage',fileUpload().single('image'),authController.UploadImage)
+app.put('/uploadImage',fileUpload().single('image'),auth,authController.UploadImage) //put>>can edit , just for user who log in so put auth
 
 
 export default app;
