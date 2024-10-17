@@ -5,6 +5,8 @@ import { sendEmail } from './../../utils/sendEmail.js'
 import { LoginSchema, registerSchema } from "./auth.validation.js";
 import { AppError } from "../../../appError.js";
 import { AppSucc } from "../../../AppSucc.js";
+import cloudinary from "../../utils/cloudinary.js";
+
 
 export const register=async(req,res,next)=>{
     
@@ -75,8 +77,10 @@ export const getAllUsers=async(req,res)=>{
 export const UploadImage=async(req,res,next)=>{
    // return res.json(req.file)
 
-    const imgUrl =req.file.destination +"/"+req.file.filename;
-    const user=await userModel.findByIdAndUpdate(req.id,{profilePicture:imgUrl})
+   // const imgUrl =req.file.destination +"/"+req.file.filename;
+   const{secure_url}=await cloudinary.uploader.upload(req.file.path);
+   // const user=await userModel.findByIdAndUpdate(req.id,{profilePicture:imgUrl})
+   const user=await userModel.findByIdAndUpdate(req.id,{profilePicture:secure_url})
     return next(new AppSucc("success",200))
 }
     

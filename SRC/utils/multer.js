@@ -1,10 +1,10 @@
-// to can upload file>> image
+// to can upload file>> image >> second way (save name and upload in db)
 import multer  from'multer';
 import { nanoid } from 'nanoid'
 
 const fileUpload=()=>{
     const storage =multer.diskStorage({
-        destination:(req,res,cb)=>{
+      /*  destination:(req,res,cb)=>{
             cb(null,'uploads')
         },
         filename:(req,file,cb)=>{
@@ -13,6 +13,7 @@ const fileUpload=()=>{
          const uniqueSuffix=nanoid()+Date.now();   // we can add Math.random()
          cb(null,uniqueSuffix+"_"+file.originalname)
         }
+         */
     });
      // file filter >> لحتى اخليه يقبل بس صور مش اي نوع ملفات ثانية
     function fileFilter(req,file,cb){
