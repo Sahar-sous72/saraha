@@ -72,6 +72,9 @@ export const getAllUsers=async(req,res)=>{
     return res.status(201).json({message:"success",users})
    
 }
+export const UploadImage=async(req,res,next)=>{
+    return next(new AppSucc('hi',203))
+}
     
 
 

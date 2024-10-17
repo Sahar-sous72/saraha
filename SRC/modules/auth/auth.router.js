@@ -5,10 +5,12 @@ import validation from "../../midlleware/validation.js";
 import { LoginSchema, registerSchema } from "./auth.validation.js";
 import { auth } from "../../midlleware/auth.js";
 import { asyncHandler } from "../../utils/catchError.js";
+import fileUpload from "../../utils/multer.js";
 
 app.post('/register',validation(registerSchema),asyncHandler(authController.register));
 app.post('/login',validation(LoginSchema),asyncHandler(authController.login));
-app.get('/allUsers',auth,asyncHandler(authController.getAllUsers))
+app.get('/allUsers',auth,asyncHandler(authController.getAllUsers));
+app.post('/uploadImage',fileUpload().single('image'),authController.UploadImage)
 
 
 export default app;
