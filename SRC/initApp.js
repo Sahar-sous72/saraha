@@ -3,10 +3,14 @@ import connectDb from './../DB/connection.js'
 import authRouter from './modules/auth/auth.router.js'
 import messageRouter from './modules/message/message.router.js'
 import postRouter from './modules/post/post.router.js'
+import cors from'cors';
+
 
 
 const initApp=(app,express)=>{
     connectDb();
+    app.use(cors())
+
     app.use(express.json());
     app.use('/auth',authRouter);
     app.use('/message',messageRouter)
