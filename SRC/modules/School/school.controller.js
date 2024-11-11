@@ -18,14 +18,11 @@ export const creteSchool = async(req,res,next)=>{
     if(await schoolModel.findOne({name})){
         return next(new AppError("school exit",404))
       }
-      // return res.json(req.files.schoolInfo)
-      if(req.files.schoolInfo){
-       // return res.json(req.files.schoolInfo)
-       const {secure_url,public_id} =await cloudinary.uploader.upload_stream(req.files.schoolInfo.path,{folder:`${process.env.APPNAME}/schoolInfo`});
-      req.body.schoolInfo={secure_url,public_id}
-      return res.json(req.files.schoolInfo)
-      }
-     
+      if (req.file){
+       const {secure_url,public_id}= await cloudinary.uploader.upload(req.file.path,{folder:`${process.env.APPNAME}/schoolInfo`})
+     // return res.json(public_id)
+    }
+    
       return next(new AppSucc("success",200))
   
   

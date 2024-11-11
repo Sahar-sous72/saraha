@@ -13,11 +13,12 @@ import fileUpload from "../../utils/uploadFile.js";
 const app=Router();
 //انشاء حساب
 app.post('/register',validation(registerSchema),asyncHandler(admistratorController.register))
-app.post('/createSchool/:id',fileUpload().fields([
+/*app.post('/createSchool/:id',fileUpload().fields([
     { name: 'schoolInfo', maxCount: 1 },
     { name: 'schoolPhoto', maxCount: 1 },
   ]),asyncHandler(schoolController.creteSchool));
-
+*/
+app.post('/createSchool/:id',fileUpload().single('schoolInfo'),asyncHandler(schoolController.creteSchool));
 app.post('/login',schoolAdmin,asyncHandler(admistratorController.logIn))
 
 
