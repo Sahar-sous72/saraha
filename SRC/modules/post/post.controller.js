@@ -1,8 +1,8 @@
-import postModel from "../../../DB/models/post.model.js";
+import postModel from "../../../DB/models/add/post.model.js";
 import { AppError } from "../../../appError.js";
 import { AppSucc } from "../../../AppSucc.js";
 import cloudinary from "../../utils/cloudinary.js";
-import CommentModel from "../../../DB/models/comment.model.js";
+import CommentModel from "../../../DB/models/add/comment.model.js";
 
 export const getPost=async(req,res,next)=>{
     //populate>> حتى اؤجع معلومات عن اليوزر الي كتب البوست

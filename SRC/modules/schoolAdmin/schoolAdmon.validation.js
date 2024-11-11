@@ -9,11 +9,12 @@ export const registerSchema ={
     }),
     password:generalFields.password,
     email:generalFields.email,
-    age:Joi.number().positive().integer().min(12).optional(),
     gender:Joi.valid('Male','Female'),
-    cpassword:Joi.valid(Joi.ref('password')),
+    //+972 ,+970 >> watsapp
     mobile: Joi.string().pattern(/^(059|056)[0-9]{7}$/).required(), // Palestinian phone number pattern
-    idNumber: Joi.string().length(9).required()
+    idNumber: Joi.string().length(9).required(),
+   //city
+    country:Joi.string().min(2).required()
 })
 }
 

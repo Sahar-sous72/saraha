@@ -18,11 +18,12 @@ const userSchema =new Schema({
     },gender:{
         type:String,
         enum:['Male','Female']
-    },confirmEmail:{
-        type:Boolean,
-        default:false
     },profilePicture:{
         type:String
+    },role:{
+        type:String,
+        enum:['user','admin','schoolSdmin','teacher','student'],
+        default:'user'
     }
 },{
     timestamps:true
